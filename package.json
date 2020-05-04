@@ -33,13 +33,14 @@
     "bookmator": "0.0.2",
     "chokidar": "^3.4.0",
     "contratos": "0.0.1",
+    "execute-command-sync": "^1.0.2",
     "fs-extra": "^9.0.0",
+    "mermaid.cli": "^0.5.1",
     "skemator": "^1.0.6",
     "yargs": "^15.3.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "execute-command-sync": "^1.0.2",
     "mocha": "^7.1.2",
     "pkg": "^4.4.8",
     "rimraf": "^3.0.2"

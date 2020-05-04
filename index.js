@@ -3,6 +3,7 @@ const fs = require("fs-extra");
 const Bookmator = require("bookmator");
 const Skemator = require("skemator");
 const Contratos = require("contratos");
+const execSync = require("execute-command-sync");
 const chokidar = require("chokidar");
 
 const getDirectoryWithCommand = (options, command, commandLabel) => {
@@ -24,8 +25,9 @@ module.exports = class {
     const skematorPattern = path.resolve(directory, "skemator/*.skm");
     const plantumlPattern = path.resolve(directory, "plantuml/*.plantuml");
     const contratosPattern = path.resolve(directory, "contratos/*.cnt");
+    const mermaidPattern = path.resolve(directory, "mermaid/*.mmd");
     const bookmatorPattern = path.resolve(directory, "book/**/*.md");
-    return chokidar.watch([skematorPattern, plantumlPattern, contratosPattern, bookmatorPattern]).on("change", () => {
+    return chokidar.watch([skematorPattern, plantumlPattern, contratosPattern, mermaidPattern, bookmatorPattern]).on("change", () => {
       this.compile({ directory });
     });
   }
@@ -38,6 +40,9 @@ module.exports = class {
     }
     if(types.indexOf("plantuml") !== -1) {
       this.compilePlantuml(path.resolve(directory, "plantuml/*.plantuml"));
+    }
+    if(types.indexOf("mermaid") !== -1) {
+      this.compileMermaid(path.resolve(directory, "mermaid"));
     }
     if(types.indexOf("contratos") !== -1) {
       this.compileContratos(path.resolve(directory, "contratos/*.cnt"));
@@ -79,12 +84,22 @@ module.exports = class {
     Bookmator.compile({ files });
   }
 
+  static compileMermaid(directory) {
+    console.log("⚛ Compiling mermaid files.");
+    const files = fs.readdirSync(directory).filter(f => f.toLowerCase().endsWith(".mmd")).map(f => path.resolve(directory, f));
+    files.forEach(file => {
+      const commands = `./node_modules/.bin/mmdc -i ${JSON.stringify(file)} -o ${JSON.stringify(file.replace(/\.mmd$/gi, ".png"))}`;
+      console.log(commands);
+      execSync(commands, { cwd: __dirname });
+    });
+  }
+
   static get FILETYPES() {
-    return ["skemator", "contratos", "plantuml", "bookmator"];
+    return ["skemator", "contratos", "plantuml", "mermaid", "bookmator"];
   }
 
   static get COMMANDS() {
-    return ["create", "start"];
+    return ["create", "compile", "start"];
   }
 
   static execute(options = {}) {
@@ -110,6 +125,7 @@ module.exports = class {
     fs.ensureDirSync(directory + "/contratos");
     fs.ensureDirSync(directory + "/plantuml");
     fs.ensureDirSync(directory + "/resources");
+    fs.ensureDirSync(directory + "/mermaid");
     fs.ensureDirSync(directory + "/skemator");
     fs.writeFileSync(directory + "/skemator/sample.skm", "#L2R\n[My first]\n [diagram]", "utf8");
     fs.writeFileSync(directory + "/book.md", "", "utf8");
