@@ -87,6 +87,8 @@ require("student-toolkit").start({ directory: "new-project" });
   - [http://www.plantuml.com/plantuml/uml](http://www.plantuml.com/plantuml/uml)
 - Train **mermaid** syntax here:
   - [https://mermaid-js.github.io/mermaid-live-editor/#/edit/](https://mermaid-js.github.io/mermaid-live-editor/#/edit/)
+- Train **contratos** syntax here:
+  - [https://allnulled.github.io/contratos/](https://allnulled.github.io/contratos/)
 
 ## License
 
