@@ -1,0 +1,58 @@
+{
+  "name": "student-toolkit",
+  "version": "0.0.1",
+  "description": "Toolkit for students",
+  "main": "index.js",
+  "bin": {
+    "student": "bin.js"
+  },
+  "scripts": {
+    "build": "pkg . --out-path dist",
+    "test": "mocha test/*.test.js"
+  },
+  "pkg": {
+    "assets": [
+      "node_modules/**/*"
+    ],
+    "scripts": [
+      "index.js"
+    ]
+  },
+  "keywords": [
+    "student",
+    "notes",
+    "diagram",
+    "toolkit",
+    "skemator",
+    "bookmator",
+    "contratos"
+  ],
+  "author": "allnulled",
+  "license": "WTFPL",
+  "dependencies": {
+    "bookmator": "0.0.2",
+    "chokidar": "^3.4.0",
+    "contratos": "0.0.1",
+    "fs-extra": "^9.0.0",
+    "skemator": "^1.0.6",
+    "yargs": "^15.3.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "execute-command-sync": "^1.0.2",
+    "mocha": "^7.1.2",
+    "pkg": "^4.4.8",
+    "rimraf": "^3.0.2"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allnulled/student-toolkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/allnulled/student-toolkit/issues"
+  },
+  "homepage": "https://github.com/allnulled/student-toolkit#readme"
+}
