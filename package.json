@@ -25,7 +25,9 @@
     "toolkit",
     "skemator",
     "bookmator",
-    "contratos"
+    "contratos",
+    "documentation",
+    "latex"
   ],
   "author": "allnulled",
   "license": "WTFPL",
