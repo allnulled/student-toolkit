@@ -19,7 +19,12 @@ describe("StudentToolkit API", function() {
   });
 
   after(function() {
-    // rimraf.sync(projectOne);
+    rimraf.sync(projectOne + "/*/*.aux");
+    rimraf.sync(projectOne + "/*/*.cnt.json");
+    rimraf.sync(projectOne + "/*/*.log");
+    rimraf.sync(projectOne + "/*/*.out");
+    rimraf.sync(projectOne + "/*/*.pdf");
+    rimraf.sync(projectOne + "/*/*.png");
   });
 
   it("create a project", function() {
