@@ -49,7 +49,7 @@ module.exports = class {
       this.compileContratos(path.resolve(directory, "contratos/*.cnt"));
     }
     if(types.indexOf("latex") !== -1) {
-      this.compileLatex(path.resolve(directory));
+      this.compileLatex(path.resolve(directory, "latex"));
     }
     if(types.indexOf("bookmator") !== -1) {
       this.compileBookmator(path.resolve(directory));
@@ -100,9 +100,10 @@ module.exports = class {
 
   static compileLatex(directory) {
     console.log("⚛ Compiling latex files.");
-    const files = fs.readdirSync(directory).filter(f => f.toLowerCase().endsWith(".latex")).map(f => path.resolve(directory, f));
+    const files = fs.readdirSync(directory).filter(f => f.toLowerCase().endsWith(".tex")).map(f => path.resolve(directory, f));
+    const isLinux = ["darwin","win32","win64"].indexOf(process.platform) === -1;
     files.forEach(file => {
-      const commands = `pdflatex ${JSON.stringify(file)}`;
+      const commands = `pdflatex -output-directory=${JSON.stringify(directory)} ${JSON.stringify(file)} ${isLinux ? ">/dev/null" : ""}`;
       console.log(commands);
       execSync(commands, { cwd: __dirname });
     });

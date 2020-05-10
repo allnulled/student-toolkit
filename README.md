@@ -17,9 +17,9 @@ Toolkit for students.
 - To start taking notes fastly for any kind of project with:
    - Rich documents in `markdown` with `bookmator`
    - Complex diagrams in `mermaid`
-   - Complex UMLs in `plantuml`
-   - Readable diagrams in `skemator`
-   - Readable UMLs in `contratos`
+   - Complex diagrams in `plantuml`
+   - Simple diagrams in `skemator`
+   - Simple UMLs in `contratos`
    - Scientific documents with `LaTeX`
 
 With [`bookmator`](https://github.com/allnulled/bookmator) you can create big `markdown` documents with filesystem files and folders.

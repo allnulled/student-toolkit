@@ -10,7 +10,12 @@ describe("StudentToolkit API", function() {
   const projectOne = __dirname + "/examples/one";
 
   before(function() {
-    rimraf.sync(projectOne);
+    rimraf.sync(projectOne + "/*/*.aux");
+    rimraf.sync(projectOne + "/*/*.cnt.json");
+    rimraf.sync(projectOne + "/*/*.log");
+    rimraf.sync(projectOne + "/*/*.out");
+    rimraf.sync(projectOne + "/*/*.pdf");
+    rimraf.sync(projectOne + "/*/*.png");
   });
 
   after(function() {
@@ -18,23 +23,36 @@ describe("StudentToolkit API", function() {
   });
 
   it("create a project", function() {
-    expect(fs.existsSync(projectOne)).to.equal(false);
+    // expect(fs.existsSync(projectOne)).to.equal(false);
     StudentToolkit.create({ directory: projectOne });
     expect(fs.existsSync(projectOne)).to.equal(true);
   });
 
   it("compile a project", function(done) {
-    expect(fs.readFileSync(projectOne + "/book.md").toString()).to.equal("");
-    expect(fs.existsSync(projectOne + "/skemator/sample.png")).to.equal(false);
+    this.timeout(1000*10);
+    expect(fs.existsSync(projectOne + "/skemator/hello.png")).to.equal(false);
+    expect(fs.existsSync(projectOne + "/plantuml/hello.png")).to.equal(false);
+    expect(fs.existsSync(projectOne + "/latex/hello.aux")).to.equal(false);
+    expect(fs.existsSync(projectOne + "/latex/hello.log")).to.equal(false);
+    expect(fs.existsSync(projectOne + "/latex/hello.out")).to.equal(false);
+    expect(fs.existsSync(projectOne + "/latex/hello.pdf")).to.equal(false);
+    expect(fs.existsSync(projectOne + "/contratos/hello.cnt.json")).to.equal(false);
     StudentToolkit.compile({ directory: projectOne });
     setTimeout(function() {
-      expect(fs.existsSync(projectOne + "/skemator/sample.png")).to.equal(true);
-      expect(fs.readFileSync(projectOne + "/book.md").toString()).to.equal("# My book");
+      expect(fs.existsSync(projectOne + "/skemator/hello.png")).to.equal(true);
+      expect(fs.existsSync(projectOne + "/skemator/hello.png")).to.equal(true);
+      expect(fs.existsSync(projectOne + "/plantuml/hello.png")).to.equal(true);
+      expect(fs.existsSync(projectOne + "/latex/hello.aux")).to.equal(true);
+      expect(fs.existsSync(projectOne + "/latex/hello.log")).to.equal(true);
+      expect(fs.existsSync(projectOne + "/latex/hello.out")).to.equal(true);
+      expect(fs.existsSync(projectOne + "/latex/hello.pdf")).to.equal(true);
+      expect(fs.existsSync(projectOne + "/contratos/hello.cnt.json")).to.equal(true);
       done();
-    }, 500);
+    }, 2000);
   });
 
   it("start working on a project", function(done) {
+    this.timeout(1000*10);
     const watcher = StudentToolkit.start({ directory: projectOne });
     setTimeout(function() {
       const introPath = path.resolve(projectOne, "book/000.introduction.md");
@@ -44,8 +62,8 @@ describe("StudentToolkit API", function() {
         const bookContents = fs.readFileSync(bookPath).toString();
         expect(bookContents).to.equal("# Hello");
         watcher.close().then(done);
-      }, 500);
-    }, 500);
+      }, 2000);
+    }, 2000);
   });
 
 });
