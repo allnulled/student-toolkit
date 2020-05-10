@@ -8,6 +8,10 @@ Toolkit for students.
 
 `$ npm install -g student-toolkit`
 
+***Important:** if you have problems due to `puppeteer` installation, try:*
+
+`$ npm install -g student-toolkit --unsafe-perm=true`
+
 ## Why
 
 - To start taking notes fastly for any kind of project with:
@@ -16,6 +20,7 @@ Toolkit for students.
    - Complex UMLs in `plantuml`
    - Readable diagrams in `skemator`
    - Readable UMLs in `contratos`
+   - Scientific documents with `LaTeX`
 
 With [`bookmator`](https://github.com/allnulled/bookmator) you can create big `markdown` documents with filesystem files and folders.
 
@@ -27,10 +32,21 @@ With [`plantuml`](https://plantuml.com/es/) you can create intensive UML documen
 
 With [`contratos`](https://github.com/allnulled/contratos) you can create highly readable programming contract specifications effortlessly.
 
+With [`latex`](https://www.latex-project.org) you can create first-level scientific and technical documents.
+
 Moreover, when you **start** working with the toolkit, it will update the contents automatically, so you can fastly see the results.
 
 However, this tool is not to edit or visualize any of these documents: use a specialized editor to do this instead, like [Atom](https://atom.io/) or [Sublime](https://www.sublimetext.com/).
 
+## Requirements
+
+If you want this tool to fully work, the only external dependency you need is `pdflatex` available from command line.
+
+To install `pdflatex` in Linux environments, you can:
+
+`$ sudo apt install texlive-latex-base`
+
+To install `pdflatex` in Windows, I do not know, [here](https://tex.stackexchange.com/questions/49569/where-to-download-pdflatex-exe) a user says something.
 
 ## Instructions
 
@@ -89,10 +105,12 @@ require("student-toolkit").start({ directory: "new-project" });
   - [https://mermaid-js.github.io/mermaid-live-editor/#/edit/](https://mermaid-js.github.io/mermaid-live-editor/#/edit/)
 - Train **contratos** syntax here:
   - [https://allnulled.github.io/contratos/](https://allnulled.github.io/contratos/)
+- Train **LaTeX** syntax here:
+  - [https://latexbase.com](https://latexbase.com)
 
 ## License
 
-This project is released under WTFPL (or *What The Fuck Public License*), which means basically **do what the fuck you want with it**.
+This project is released under WTFPL (or *What The Fuck Public License*), which means basically **do what the fuck you want with it**, simply.
 
 ## Issues
 

@@ -48,11 +48,11 @@ module.exports = class {
     if(types.indexOf("contratos") !== -1) {
       this.compileContratos(path.resolve(directory, "contratos/*.cnt"));
     }
-    if(types.indexOf("bookmator") !== -1) {
-      this.compileBookmator(path.resolve(directory));
-    }
     if(types.indexOf("latex") !== -1) {
       this.compileLatex(path.resolve(directory));
+    }
+    if(types.indexOf("bookmator") !== -1) {
+      this.compileBookmator(path.resolve(directory));
     }
   }
 

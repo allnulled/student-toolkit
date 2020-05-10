@@ -14,7 +14,7 @@ describe("StudentToolkit API", function() {
   });
 
   after(function() {
-    rimraf.sync(projectOne);
+    // rimraf.sync(projectOne);
   });
 
   it("create a project", function() {
