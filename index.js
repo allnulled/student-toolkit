@@ -26,8 +26,9 @@ module.exports = class {
     const plantumlPattern = path.resolve(directory, "plantuml/*.plantuml");
     const contratosPattern = path.resolve(directory, "contratos/*.cnt");
     const mermaidPattern = path.resolve(directory, "mermaid/*.mmd");
+    const latexPattern = path.resolve(directory, "latex/*.tex");
     const bookmatorPattern = path.resolve(directory, "book/**/*.md");
-    return chokidar.watch([skematorPattern, plantumlPattern, contratosPattern, mermaidPattern, bookmatorPattern]).on("change", () => {
+    return chokidar.watch([skematorPattern, plantumlPattern, contratosPattern, mermaidPattern, latexPattern, bookmatorPattern]).on("change", () => {
       this.compile({ directory });
     });
   }
@@ -49,6 +50,9 @@ module.exports = class {
     }
     if(types.indexOf("bookmator") !== -1) {
       this.compileBookmator(path.resolve(directory));
+    }
+    if(types.indexOf("latex") !== -1) {
+      this.compileLatex(path.resolve(directory));
     }
   }
 
@@ -94,8 +98,18 @@ module.exports = class {
     });
   }
 
+  static compileLatex(directory) {
+    console.log("⚛ Compiling latex files.");
+    const files = fs.readdirSync(directory).filter(f => f.toLowerCase().endsWith(".latex")).map(f => path.resolve(directory, f));
+    files.forEach(file => {
+      const commands = `pdflatex ${JSON.stringify(file)}`;
+      console.log(commands);
+      execSync(commands, { cwd: __dirname });
+    });
+  }
+
   static get FILETYPES() {
-    return ["skemator", "contratos", "plantuml", "mermaid", "bookmator"];
+    return ["skemator", "contratos", "plantuml", "mermaid", "bookmator", "latex"];
   }
 
   static get COMMANDS() {
@@ -126,6 +140,7 @@ module.exports = class {
     fs.ensureDirSync(directory + "/plantuml");
     fs.ensureDirSync(directory + "/resources");
     fs.ensureDirSync(directory + "/mermaid");
+    fs.ensureDirSync(directory + "/latex");
     fs.ensureDirSync(directory + "/skemator");
     fs.writeFileSync(directory + "/skemator/sample.skm", "#L2R\n[My first]\n [diagram]", "utf8");
     fs.writeFileSync(directory + "/book.md", "", "utf8");
